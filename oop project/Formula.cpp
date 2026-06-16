@@ -13,7 +13,7 @@ void Formula::setFormula(const std::string& newFormula)
 {
     if (!isValidFormula(newFormula))
     {
-        throw std::invalid_argument("Improper way of beggining function\n");
+        throw std::invalid_argument("Invalid function passed\n");
     }
 
     formula = newFormula;
