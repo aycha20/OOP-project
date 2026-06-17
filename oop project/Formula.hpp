@@ -27,6 +27,7 @@ private:
 	bool isCellReferenceString(const std::string& operand) const;
 	void parseCellReferenceValue(const std::string& operand, unsigned& row, unsigned& col) const;
 };
+// хелпъри ОТДЕЛНО
 static bool isDigit(char c);
 
 static void skipSpaces(const std::string& str, unsigned& index);

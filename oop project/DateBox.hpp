@@ -6,6 +6,7 @@
 class DateBox : public Box
 {
 public:
+	// бих предпочела да подаваш данните по отделно, не като обект, или поне предостави и двата варианта
 	DateBox(const Date& date);
 	DateBox(const std::string& date);
 

@@ -5,6 +5,7 @@
 StringBox::StringBox(const std::string& text)
 {
     if (!isValidText(text))//tuk kato sme proverili nqma nujda dolu pak?
+	// кое долу? стига removeFillerSymb да няма потенциала да замаже нещо, няма нужда от повече проверки
     {
         throw std::invalid_argument("Invalid text passed\n");
     }
@@ -39,7 +40,7 @@ std::string StringBox::getDataStr() const
 
 void StringBox::print() const
 {
-    std::cout << text;
+    std::cout << text; // пак не се дава индикация какво е състоянието на потока
 }
 
 StringBox* StringBox::clone() const
@@ -64,6 +65,7 @@ std::string StringBox::getDisplayStr(const Spreadsheet& sheet) const
 
 bool StringBox::isValidText(const std::string& text)
 {
+	// text.size() го изнеси в отделна променлива и я ползвай нея за цикъла
     for (size_t i = 0; i < text.size(); i++)
     {        
         if (text[i] == '\\')

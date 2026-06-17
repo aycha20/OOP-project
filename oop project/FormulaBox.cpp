@@ -51,7 +51,7 @@ std::string FormulaBox::getDisplayStr(const Spreadsheet& sheet) const
     {
         return std::to_string(formula.evaluate(sheet));
     }
-    catch (...)
+    catch (...) // хавни преди това няколко по-специфични ексепшъна, не директно ..., който поглъща всичко
     {
         return "ERROR";
     }

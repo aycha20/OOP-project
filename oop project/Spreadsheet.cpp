@@ -54,7 +54,8 @@ Spreadsheet& Spreadsheet::operator=(const Spreadsheet& other)
     {
         Spreadsheet temp(other);
         free();
-        copyFrom(temp);
+        copyFrom(temp); // тук отново можеш да фейлнеш и в такъв случай вече си си изтрила данните
+		// това НЕ е strong exception safety
     }
 
     return *this;
@@ -67,11 +68,13 @@ Spreadsheet::~Spreadsheet()
 
 void Spreadsheet::open(const std::string& fileName)
 {
+	// && или || ?
     if (isOpen && isModified)
     {
         throw std::runtime_error("There are unsaved changes. Save or close the current file before opening another one.");
     }
-
+	
+	// по-смислено е това да се проверява първо
     if (fileName.empty())
     {
         throw std::invalid_argument("Empty string passed for file name\n");
@@ -299,7 +302,7 @@ void Spreadsheet::free()
             delete boxes[i][j];
             boxes[i][j] = nullptr;
         }
-        boxes[i].clear();
+        boxes[i].clear(); // вече са nullptr
     }
 
     boxes.clear();

@@ -3,17 +3,25 @@
 
 Date::Date(unsigned day, unsigned month, unsigned year)
 {
-    this->year = year;
+	this->year = year;
     maxDays[1] = isLeapYear(year) ? 29 : 28;
     this->month = month;
     this->day = day;
 
     if (!isValidDate())
     {
+		// аз лично бих хвърлила изключение тук;
+		// като потребител, подавайки грешни входни данни, ти няма да ми сигнализираш, че
+		// поисканата от мен операция не се е получила; аз обаче заблудено ще продължа да си рънвам
+		// програмата, мислейки си, че обекта ми е създаден с подадените данни;
+		// ако не искаш да хвърлиш изключение и да прекратиш създаването на обекта
+		// поне изпиши съобщение на конзолата (някакъв warning или все тая какво), за да съобщиш
         this->day = 1;
         this->month = 1;
         this->year = 1;
         maxDays[1] = 28;
+		// тези хардкоднати стойности ги измести в константи;
+		// за проекти нямаш оправдание да ги забиваш така грубо в кода навсякъде
     }
 
 }
@@ -25,7 +33,10 @@ bool Date::setYear(unsigned year)
 
     this->year = year;
     maxDays[1] = isLeapYear(year) ? 29 : 28;
-
+	
+	// на тоя етап е по-смислено isValidDate да взима примерна дата (unsigned year, month, day) 
+	// и да казва дали тия числа формират правилна дата и съответно цялата ф-я да е статична;
+	// а не да я обвързваш с конкретна инстанция и потенциално да reassign-ваш член-данни по няколко пъти
     if (!isValidDate())
     {
         this->year = oldYear;
@@ -84,8 +95,11 @@ void Date::serialize() const
     printTwoDigits(month);
     std::cout << '-';
     std::cout << year;
+	
+	// никаква идея дали писането е минало успешно - ако нещо се е прегазило, никой не разбира :)
 }
 
+// това не е за date класът, ами за някакъв отделен хелпър
 void Date::printTwoDigits(unsigned number) const
 {
     if (number < 10)
@@ -96,6 +110,7 @@ void Date::printTwoDigits(unsigned number) const
     std::cout << number;
 }
 
+// сейм
 bool isDigit(char c)
 {
     return c >= '0' && c <= '9';
@@ -147,6 +162,7 @@ bool isLeapYear(unsigned year)
     return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
 }
 
+// отново в някакъв хелпър може би (date utilities примерно, include-ва Date и работи с Date обекти, но е отделно)
 unsigned getNumFromStr(const std::string& str, unsigned start, unsigned count)
 {
     unsigned result = 0;

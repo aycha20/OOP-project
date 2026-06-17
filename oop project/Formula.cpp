@@ -16,7 +16,7 @@ void Formula::setFormula(const std::string& newFormula)
         throw std::invalid_argument("Invalid function passed\n");
     }
 
-    formula = newFormula;
+    formula = newFormula; // пак правиш assignment, ако можеш ползвай сетъри
 }
 
 std::string Formula::getFormula() const
@@ -110,6 +110,7 @@ double Formula::evaluate(const Spreadsheet& table) const
     throw std::invalid_argument("Unknown operator.");
 }
 
+// извън класа
 std::string Formula::readOperand(unsigned& index) const
 {
     skipSpaces(formula, index);
@@ -124,6 +125,7 @@ std::string Formula::readOperand(unsigned& index) const
     return formula.substr(start, index - start);
 }
 
+// извън класа
 std::string Formula::readOperator(unsigned& index) const
 {
     skipSpaces(formula, index);
@@ -137,7 +139,7 @@ std::string Formula::readOperator(unsigned& index) const
 
     return formula.substr(start, index - start);
 }
-
+// извън класа
 double Formula::evaluateOperand(const std::string& operand, const Spreadsheet& table) const
 {
     if (isCellReferenceString(operand))
@@ -152,7 +154,7 @@ double Formula::evaluateOperand(const std::string& operand, const Spreadsheet& t
 
     return std::stod(operand);
 }
-
+// извън класа
 bool Formula::isCellReferenceString(const std::string& operand) const
 {
     unsigned idx = 0;
@@ -165,7 +167,7 @@ bool Formula::isCellReferenceString(const std::string& operand) const
 
     return idx == operand.length();
 }
-
+// извън класа
 void Formula::parseCellReferenceValue(const std::string& operand, unsigned& row, unsigned& col) const
 {
     unsigned idx = 0;
@@ -194,12 +196,12 @@ void Formula::parseCellReferenceValue(const std::string& operand, unsigned& row,
         throw std::invalid_argument("Invlaid column in cell reference\n");
     }
 }
-
+// извън класа
 bool isDigit(char c)
 {
     return c >= '0' && c <= '9';
 }
-
+// извън класа
 void skipSpaces(const std::string& str, unsigned& index)
 {
     while (index < str.length() && str[index] == ' ')
@@ -207,7 +209,7 @@ void skipSpaces(const std::string& str, unsigned& index)
         index++;
     }
 }
-
+// извън класа
 bool parsePositiveInteger(const std::string& str, unsigned& index, unsigned& number)
 {
     unsigned start = index;
@@ -226,7 +228,7 @@ bool parsePositiveInteger(const std::string& str, unsigned& index, unsigned& num
 
     return index > start;
 }
-
+// извън класа
 bool parseNumber(const std::string& str, unsigned& index)
 {
     unsigned start = index;
@@ -271,7 +273,7 @@ bool parseNumber(const std::string& str, unsigned& index)
 
     return true;
 }
-
+// извън класа
 bool parseCellReference(const std::string& str, unsigned& index)
 {
     unsigned start = index;
@@ -321,14 +323,14 @@ bool parseCellReference(const std::string& str, unsigned& index)
 
     return true;
 }
-
+// извън класа
 bool parseOperand(const std::string& str, unsigned& index)
 {
     skipSpaces(str, index);
 
     return (parseNumber(str, index)) || (parseCellReference(str, index));
 }
-
+// извън класа
 bool parseOperator(const std::string& str, unsigned& index)
 {
     skipSpaces(str, index);

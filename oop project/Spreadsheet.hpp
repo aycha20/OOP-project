@@ -33,6 +33,7 @@ public:
 	double getValueAtZeroBased(unsigned row, unsigned col) const;
 
 private:
+	// защо вектор от указатели?
 	std::vector<std::vector<Box*>> boxes;
 	unsigned rows = 0;
 	unsigned cols = 0;
@@ -53,7 +54,8 @@ private:
 	unsigned countCellsInLine(const std::string& line, unsigned row);
 
 	void setCurrentFile(const std::string& newFile);
-
+	
+	// тук съм сигурна отново, че поне половината могат да се изнесът в отделен клас
 	void getTableSize(std::ifstream& file, unsigned& fRows, unsigned& fCols);
 	std::string readCellFromLine(const std::string& line, unsigned row ,unsigned& idx);
 	Box* createBoxFromText(const std::string& text, unsigned row, unsigned col);
